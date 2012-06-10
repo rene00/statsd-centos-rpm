@@ -21,8 +21,9 @@ Simple daemon for easy stats aggregation
 %build
 
 %install
-%{__mkdir_p} %{buildroot}/usr/share/statsd
+%{__mkdir_p} %{buildroot}/usr/share/statsd/backends
 %{__install} -Dp -m0644 stats.js config.js %{buildroot}/usr/share/statsd
+%{__install} -Dp -m0644 backends/{console.js,graphite.js} %{buildroot}/usr/share/statsd/backends/
 
 %{__mkdir_p} %{buildroot}%{_initrddir}
 %{__install} -Dp -m0755 init/statsd %{buildroot}%{_initrddir}/%{name}
