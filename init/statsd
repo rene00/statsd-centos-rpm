@@ -22,7 +22,7 @@
 
 NAME=statsd
 INSTALL_DIR=/usr/share/$NAME
-NODE_EXE=/usr/bin/node
+NODE_EXE=/usr/bin/nodejs
 
 [ -x $NODE_EXE ] || exit 0
 [ -f $INSTALL_DIR/stats.js ] || exit 0
