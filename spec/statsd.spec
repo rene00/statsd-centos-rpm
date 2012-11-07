@@ -1,5 +1,5 @@
 Name:           statsd
-Version:        0.3.0
+Version:        0.5.0
 Release:        1%{?dist}
 Summary:        monitoring daemon, that aggregates events received by udp in 10 second intervals
 Group:          Applications/Internet
@@ -21,8 +21,9 @@ Simple daemon for easy stats aggregation
 %build
 
 %install
-%{__mkdir_p} %{buildroot}/usr/share/statsd/backends
-%{__install} -Dp -m0644 stats.js config.js %{buildroot}/usr/share/statsd
+%{__mkdir_p} %{buildroot}/usr/share/statsd/backends %{buildroot}/usr/share/statsd/lib
+%{__install} -Dp -m0644 stats.js %{buildroot}/usr/share/statsd
+%{__install} -Dp -m0644 lib/config.js lib/logger.js lib/set.js %{buildroot}/usr/share/statsd/lib
 %{__install} -Dp -m0644 backends/{console.js,graphite.js} %{buildroot}/usr/share/statsd/backends/
 
 %{__mkdir_p} %{buildroot}%{_initrddir}
