@@ -8,6 +8,7 @@ URL:            https://github.com/renecunningham/statsd-rpm
 Vendor:         Etsy
 Packager:       Rene Cunningham <rene@compounddata.com>
 Source0:        %{name}-%{version}.tar.bz2
+Source1:	statsd-init.d
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:      noarch
 Requires:       nodejs
@@ -27,7 +28,7 @@ Simple daemon for easy stats aggregation
 %{__install} -Dp -m0644 backends/{console.js,graphite.js} %{buildroot}/usr/share/statsd/backends/
 
 %{__mkdir_p} %{buildroot}%{_initrddir}
-%{__install} -Dp -m0755 init/statsd %{buildroot}%{_initrddir}/%{name}
+%{__install} -Dp -m0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
 
 %{__mkdir_p} %{buildroot}%{_sysconfdir}/%{name}
 %{__install} -Dp -m0644 exampleConfig.js  %{buildroot}%{_sysconfdir}/%{name}/config.js
