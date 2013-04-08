@@ -13,6 +13,8 @@ cd ~/rpmbuild
 rpmdev-setuptree
 cp <git repo dir>/spec/statsd.spec ./SPECS/.
 cp <git repo dir>/init/statsd ./SOURCES/statsd-init.d
+wget https://github.com/etsy/statsd/archive/v0.6.0.tar.gz -O ./SOURCES/statsd-0.6.0.tar.gz
+# NOTE: you may wish to extract the file to ./BUILD/statsd-0.6.0 and then edit ./BUILD/statsd-0.6.0/exampleConfig.js as that file will become the config file used by the RPM after installation
 spectool -g -R SPECS/statsd.spec
 rpmbuild --clean -ba ./SPECS/statsd.spec
 sudo yum install RPMS/noarch/statsd-0.6.0-1.noarch.rpm --nogpgcheck
