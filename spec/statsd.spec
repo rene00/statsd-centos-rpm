@@ -1,5 +1,5 @@
 Name:           statsd
-Version:        0.5.0
+Version:        0.6.0
 Release:        1%{?dist}
 Summary:        monitoring daemon, that aggregates events received by udp in 10 second intervals
 Group:          Applications/Internet
@@ -7,7 +7,7 @@ License:        Etsy open source license
 URL:            https://github.com/renecunningham/statsd-rpm
 Vendor:         Etsy
 Packager:       Rene Cunningham <rene@compounddata.com>
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        %{name}-%{version}.tar.gz
 Source1:	statsd-init.d
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:      noarch
@@ -24,7 +24,7 @@ Simple daemon for easy stats aggregation
 %install
 %{__mkdir_p} %{buildroot}/usr/share/statsd/backends %{buildroot}/usr/share/statsd/lib
 %{__install} -Dp -m0644 stats.js %{buildroot}/usr/share/statsd
-%{__install} -Dp -m0644 lib/config.js lib/logger.js lib/set.js %{buildroot}/usr/share/statsd/lib
+%{__install} -Dp -m0644 lib/config.js lib/logger.js lib/set.js lib/process_metrics.js %{buildroot}/usr/share/statsd/lib
 %{__install} -Dp -m0644 backends/{console.js,graphite.js} %{buildroot}/usr/share/statsd/backends/
 
 %{__mkdir_p} %{buildroot}%{_initrddir}
