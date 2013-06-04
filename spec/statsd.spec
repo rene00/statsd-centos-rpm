@@ -9,6 +9,7 @@ Vendor:         Etsy
 Packager:       Rene Cunningham <rene@compounddata.com>
 Source0:        %{name}-%{version}.tar.gz
 Source1:	statsd-init.d
+Source2:	config.js
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:      noarch
 Requires:       nodejs
@@ -31,7 +32,7 @@ Simple daemon for easy stats aggregation
 %{__install} -Dp -m0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
 
 %{__mkdir_p} %{buildroot}%{_sysconfdir}/%{name}
-%{__install} -Dp -m0644 exampleConfig.js  %{buildroot}%{_sysconfdir}/%{name}/config.js
+%{__install} -Dp -m0644 %{SOURCE2}  %{buildroot}%{_sysconfdir}/%{name}/config.js
 
 %{__mkdir_p} %{buildroot}%{_localstatedir}/lock/subsys
 touch %{buildroot}%{_localstatedir}/lock/subsys/%{name}
@@ -57,6 +58,7 @@ exit 0
 
 %post
 chkconfig --add %{name}
+service %{name} start
 
 %clean
 [ "%{buildroot}" != "/" ] && %{__rm} -rf %{buildroot}
