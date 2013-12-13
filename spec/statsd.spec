@@ -1,5 +1,5 @@
 Name:           statsd
-Version:        0.6.0
+Version:        0.7.0
 Release:        1%{?dist}
 Summary:        monitoring daemon, that aggregates events received by udp in 10 second intervals
 Group:          Applications/Internet
@@ -23,10 +23,12 @@ Simple daemon for easy stats aggregation
 %build
 
 %install
-%{__mkdir_p} %{buildroot}/usr/share/statsd/backends %{buildroot}/usr/share/statsd/lib
-%{__install} -Dp -m0644 stats.js %{buildroot}/usr/share/statsd
-%{__install} -Dp -m0644 lib/config.js lib/logger.js lib/set.js lib/process_metrics.js %{buildroot}/usr/share/statsd/lib
+%{__mkdir_p} %{buildroot}/usr/share/statsd/backends %{buildroot}/usr/share/statsd/lib %{buildroot}/usr/share/statsd/bin
+%{__install} -Dp -m0644 stats.js %{buildroot}/usr/share/statsd/
+%{__install} -Dp -m0644 lib/config.js lib/logger.js lib/set.js lib/process_metrics.js %{buildroot}/usr/share/statsd/lib/
+%{__install} -Dp -m0644 lib/helpers.js lib/process_mgmt.js lib/mgmt_console.js %{buildroot}/usr/share/statsd/lib/
 %{__install} -Dp -m0644 backends/{console.js,graphite.js} %{buildroot}/usr/share/statsd/backends/
+%{__install} -Dp -m0655 bin/statsd %{buildroot}/usr/share/statsd/bin/
 
 %{__mkdir_p} %{buildroot}%{_initrddir}
 %{__install} -Dp -m0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
@@ -67,6 +69,8 @@ service %{name} start
 %defattr(-,root,root,-)
 %doc LICENSE README.md
 %doc exampleConfig.js
+%doc exampleProxyConfig.js
+%doc Changelog.md
 
 /usr/share/%{name}/*
 %{_initrddir}/%{name}
